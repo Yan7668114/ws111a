@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        padding: 8px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 8px 0;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+     <script>
+      window.onload = load;
+
+      async function load()
+      {
+          let screen = document.getElementById("left");
+          let output = await window.fetch("/sqlite/.tables");
+
+          screen.innerText = JSON.stringify(await output.json(), null, 4);
+      }
+
+      async function send(event)
+      {
+          if (event.which === 13 && !event.shiftKey)
+          {
+              event.preventDefault();
+
+              try
+              {
+                  let command = document.getElementById("top").value;
+                  let screen = document.getElementById("bottom");
+                  let output = await window.fetch(`/sqlite/${command}`);
+
+                  screen.innerText = JSON.stringify(await output.json(), null, 4);
+                  document.getElementById("top").value = "";
+                  load();
+              }
+              catch
+              {
+                  alert("invalid input\nplease use shift + enter to wrap");
+              }
+          }
+      }
+  </script>
+  </head>
+  <body>
+    <form id="login-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
+
