@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Blog</title>
+</head>
+<body>
+  <h1>My Blog</h1>
+  <h2>A Blog Post</h2>
+  <p>This is my blog post.</p>
+ 
+  <script>
+    // Use JavaScript to add a "like" button to the blog post
+    var likeButton = document.createElement("button");
+    likeButton.innerHTML = "Like";
+    document.body.appendChild(likeButton);
+ 
+    // Add an event listener to the button to track likes
+    var likes = 0;
+    likeButton.addEventListener("click", function() {
+      likes++;
+      likeButton.innerHTML = "Likes: " + likes;
+    });
+  </script>
+</body>
+</html>
