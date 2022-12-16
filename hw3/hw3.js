@@ -19,8 +19,8 @@ app.use(router.allowedMethods());
 
 function query(sql) {
     let list = []
-    for (const [id, title,date, body] of db.query(sql)) {
-      list.push({id, title,date, body})
+    for (const [id, title,datetime, body] of db.query(sql)) {
+      list.push({id, title,datetime, body})
     }
     return list
   }
@@ -58,7 +58,7 @@ async function create(ctx) {
         post[key] = value
       }
       console.log('create:post=', post)
-      db.query("INSERT INTO posts (title,date, body) VALUES (?,?, ?)", [post.title,post.date, post.body]);
+      db.query("INSERT INTO posts (title,date, body) VALUES (?,?, ?)", [post.title,post.datetime, post.body]);
       ctx.response.redirect('/');
     }
   }
